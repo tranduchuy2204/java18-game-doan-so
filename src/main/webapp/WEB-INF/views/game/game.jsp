@@ -59,11 +59,13 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form action="<%=request.getContextPath() + UrlUtils.GAME%>" method="post" ${game.isCompleted ? 'hidden': ''}>
+            <form action="<%=request.getContextPath() + UrlUtils.GAME%>"
+                  method="post" ${game.isCompleted ? 'hidden': ''}>
                 <input type="text" name="game-session" value="${game.id}" hidden>
                 <div class="form-group form-row">
                     <label for="number"></label>
-                    <input type="number" name="guess" class="form-control form-control-lg text-center col-4 offset-4" id="number" required ${game.isCompleted ? 'readonly': ''}>
+                    <input type="number" name="guess" class="form-control form-control-lg text-center col-4 offset-4"
+                           id="number" required ${game.isCompleted ? 'readonly': ''}>
                 </div>
                 <div class="form-row align-items-center">
                     <button type="submit" class="btn btn-outline-primary btn-lg col-4 offset-4">Đoán</button>

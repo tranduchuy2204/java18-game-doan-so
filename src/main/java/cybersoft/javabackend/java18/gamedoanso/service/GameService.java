@@ -7,6 +7,7 @@ import cybersoft.javabackend.java18.gamedoanso.repository.GameSessionRepository;
 import cybersoft.javabackend.java18.gamedoanso.repository.GuessRepository;
 import cybersoft.javabackend.java18.gamedoanso.repository.PlayerRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class GameService {
@@ -108,7 +109,7 @@ public class GameService {
         return gameSession;
     }
 
-    public void completeGame(String sessionId) {
-        gameSessionRepository.completeGame(sessionId);
+    public void completeGame(String sessionId, LocalDateTime endTime) {
+        gameSessionRepository.completeGame(sessionId, endTime);
     }
 }

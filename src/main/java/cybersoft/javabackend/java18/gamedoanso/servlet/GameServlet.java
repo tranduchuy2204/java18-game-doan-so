@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @WebServlet(name = "gameServlet", urlPatterns = {
         UrlUtils.GAME,
         UrlUtils.NEW_GAME,
-        UrlUtils.XEP_HANG
 })
 public class GameServlet extends HttpServlet {
     private GameService gameService;
@@ -33,8 +33,6 @@ public class GameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         switch (req.getServletPath()) {
             case UrlUtils.GAME, UrlUtils.NEW_GAME -> loadGame(req, resp);
-            case UrlUtils.XEP_HANG -> req.getRequestDispatcher(JspUtils.XEP_HANG)
-                    .forward(req, resp);
             default -> resp.sendRedirect(req.getContextPath() + UrlUtils.NOT_FOUND);
         }
     }
@@ -44,6 +42,7 @@ public class GameServlet extends HttpServlet {
         // create new game/get existed game
         GameSession game = gameService.getCurrentGame(currentUser.getUsername());
         // put in req
+        System.out.println(game);
         req.setAttribute("game", game);
         req.getRequestDispatcher(JspUtils.GAME)
                 .forward(req, resp);
@@ -54,8 +53,6 @@ public class GameServlet extends HttpServlet {
         switch (req.getServletPath()) {
             case UrlUtils.GAME -> processGame(req, resp);
             case UrlUtils.NEW_GAME -> processNewGame(req, resp);
-            case UrlUtils.XEP_HANG -> req.getRequestDispatcher(JspUtils.XEP_HANG)
-                    .forward(req, resp);
             default -> resp.sendRedirect(req.getContextPath() + UrlUtils.NOT_FOUND);
         }
     }
@@ -83,7 +80,9 @@ public class GameServlet extends HttpServlet {
         gameSession.getGuess().add(createGuess(gameSession, guessNumber));
 
         if (guessNumber == gameSession.getTargetNumber()) {
-            gameService.completeGame(gameSessionId);
+            LocalDateTime endTime = LocalDateTime.now();
+            gameSession.setEndTime(endTime);
+            gameService.completeGame(gameSessionId, endTime);
         }
 
         resp.sendRedirect(req.getContextPath() + UrlUtils.GAME);

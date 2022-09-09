@@ -30,6 +30,10 @@ public class GameSession implements Serializable {
         this.username = username;
     }
 
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
     private static int getRandomInt(int max) {
         if (random == null)
             random = new Random();

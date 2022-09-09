@@ -1,6 +1,6 @@
-create database if not exists gamedoanso;
+create database if not exists game_database;
 
-use gamedoanso;
+use game_database;
 
 create table if not exists player(
 	username varchar(255),

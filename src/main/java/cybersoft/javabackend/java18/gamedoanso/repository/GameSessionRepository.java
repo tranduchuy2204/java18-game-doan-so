@@ -99,15 +99,18 @@ public class GameSessionRepository extends AbstractRepository<GameSession> {
         });
     }
 
-    public void completeGame(String sessionId) {
+    public void completeGame(String sessionId, LocalDateTime endTime) {
         final String query = """
                 update game_session
-                set is_completed = 1
+                set is_completed = 1, end_time = ?
                 where id = ?
                 """;
         executeUpdate(connection -> {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, sessionId);
+            statement.setTimestamp(1, Timestamp.from(
+                    endTime.toInstant(ZoneOffset.of("+07:00")))
+            );
+            statement.setString(2, sessionId);
             return statement.executeUpdate();
         });
     }

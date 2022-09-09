@@ -1,12 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+         pageEncoding="UTF-8" %>
+<%@ page import="cybersoft.javabackend.java18.gamedoanso.utils.UrlUtils" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>Bảng Xếp Hạng</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 700px;
+        }
+    </style>
 </head>
 <body>
-	<h1>Xep Hang</h1>
+<div class="container">
+    <h1 class="text-center display-5 mb-5">Bảng xếp hạng người chơi chiến thắng có lượt chơi ít nhất</h1>
+    <a class="btn btn-warning" href="<%= request.getContextPath() + UrlUtils.GAME%>">Quay lại game</a>
+    <div id="ranking-list">
+
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th>TOP</th>
+                <th>TÊN</th>
+                <th>Lượt chơi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="rank" items="${listRank}" varStatus="loop">
+                <tr class="table-success">
+                    <th scope="row">${loop.index + 1}</th>
+                    <td>${rank.getUsername()}</td>
+                    <td>${rank.getPlayedTimes()}</td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
